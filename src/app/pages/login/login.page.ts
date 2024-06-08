@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { ChatService } from '../../services/chat.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private chatService: ChatService
+    private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
@@ -30,48 +30,51 @@ export class LoginPage implements OnInit {
   async signUp() {
     const loading = await this.loadingController.create();
     await loading.present();
-    this.chatService
-      .signup(this.credentialForm.value)
-      .then(
-        (user) => {
-          loading.dismiss();
-          this.router.navigateByUrl('/chat', { replaceUrl: true });
-        },
-        async (err) => {
-          loading.dismiss();
-          const alert = await this.alertController.create({
-            header: 'Sign up failed',
-            message: err.message,
-            buttons: ['OK'],
-          });
 
-          await alert.present();
-        }
-      );
+    this.afAuth.createUserWithEmailAndPassword(
+      this.credentialForm.value.email,
+      this.credentialForm.value.password
+    ).then(
+      (user) => {
+        loading.dismiss();
+        this.router.navigateByUrl('/home', { replaceUrl: true });
+      },
+      async (err) => {
+        loading.dismiss();
+        const alert = await this.alertController.create({
+          header: 'Sign up failed',
+          message: err.message,
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+      }
+    );
   }
 
   async signIn() {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    this.chatService
-      .signIn(this.credentialForm.value)
-      .then(
-        (res) => {
-          loading.dismiss();
-          this.router.navigateByUrl('/chat', { replaceUrl: true });
-        },
-        async (err) => {
-          loading.dismiss();
-          const alert = await this.alertController.create({
-            header: ':(',
-            message: err.message,
-            buttons: ['OK'],
-          });
+    this.afAuth.signInWithEmailAndPassword(
+      this.credentialForm.value.email,
+      this.credentialForm.value.password
+    ).then(
+      (res) => {
+        loading.dismiss();
+        this.router.navigateByUrl('/home', { replaceUrl: true });
+      },
+      async (err) => {
+        loading.dismiss();
+        const alert = await this.alertController.create({
+          header: ':(',
+          message: err.message,
+          buttons: ['OK'],
+        });
 
-          await alert.present();
-        }
-      );
+        await alert.present();
+      }
+    );
   }
 
   get email() {

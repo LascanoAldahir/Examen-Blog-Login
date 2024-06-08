@@ -7,18 +7,18 @@ const redirectUnauthorizedToLogin = () =>
   redirectUnauthorizedTo(['/']);
 
 // Automatically log in users
-const redirectLoggedInToChat = () => redirectLoggedInTo(['/chat']);
+const redirectLoggedInToHome= () => redirectLoggedInTo(['/home']);
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    ...canActivate(redirectLoggedInToChat),
+    ...canActivate(redirectLoggedInToHome),
   },
   {
-    path: 'chat',
+    path: 'home',
     ...canActivate(redirectUnauthorizedToLogin),
-    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   }
 ];
 
