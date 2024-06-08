@@ -212,7 +212,7 @@ Entonces con el HTML podemos pasar la lógica ya generada y que funcione en nues
 5 Ejecución
 Para poder ejecutar nuestro proyecto simplemente necesitamos ejecutar el comando
 ```bash
-Npx ionic s
+npx ionic s
 ```
 Este comando ejecutará nuestra aplicación de forma web, entonces podremos comprobar que la aplicación es totalmente funcional.
 si se quiere ejecutar en android se necesitan 2 comandos
@@ -233,4 +233,5 @@ Un problema que suele ocurrir al momento de generar el build de Android es que n
 ### Android
 ![image](https://github.com/4lanPz/AM_Login_2024A/assets/117743495/121c641e-9e4d-4f63-8d29-03552fb0bd6c)
 ![image](https://github.com/4lanPz/AM_Login_2024A/assets/117743495/ad6ae350-3d0f-462c-90d5-be4657246b60)
+![image](https://github.com/4lanPz/AM_Login_2024A/assets/117743495/6ea8741c-9876-4976-b68c-0438a44210ee)
 
