@@ -1,6 +1,11 @@
-# CV usando Ionic
+# Login usando Ionic
 
 Hacer un login básico utilizando Ionic, Visual Studio Code y Android Studio
+
+## Clonar
+```bash
+Git clone https://github.com/4lanPz/AM_Login_2024A
+```
 
 ## Pasos
 
@@ -17,7 +22,7 @@ Estos se pueden descargar desde la pagina web oficial de dependiendo de el OS qu
 Para empezar el proyecto hay que ejecutar el siguiente comando
 
 ```bash
-ionic Start nombreproyecto blank --type=angular
+npx ionic Start nombreproyecto blank --type=angular
 ```
 
 En este nombreproyecto es el nombre que le vamos a poner a nuestro proyecto, por lo que se puede poner el
@@ -42,11 +47,16 @@ Después de instalar los módulos del proyecto, es necesario instalar firebase a
 Para ello necesitamos ejecutar el siguiente comando
 ```bash
 npm install firebase @angular/fire
-ionic g service services/auth
-ionic g page login
-ionic g page home
+npx ionic g service services/auth
+npx ionic g page login
+npx ionic g page home
 ```
 Estos lo que nos ayudan es a configurar nuestro Firebase que si no tenemos cuenta debemos registrarnos, generar una apikey web en authentication con correo y contraseña.
+Para iniciar la configuracion de nuestro Firebase necesitamos estos comandos.
+```bash
+firebase login // si aun no inicias sesión
+firebase init // configuración de firebase para nuestra aplicación
+```
 Cuando generemos nuestro apikey nos debe entregar algo como esto
 ```bash
 firebaseConfig: {
@@ -78,11 +88,10 @@ import { environment } from '../environments/environment';
 })
 export class AppModule { }
 ```
+Pero al poner ese código necesitamos tambien poner nuestras credenciales en nuestro archivo "environment.ts"
+Ahora con los módulos importados podemos empezar a realizar la lógica del login y que este nos redireccione a una página home.
 
-Pero al poner ese código necesitamos tambien poner nuestras credenciales en nuestro archivo environment.ts
-Ahora con los módulos importados podemos empezar a realizar la lógica del login y que este nos redireccione a una página home
-
-Primero se realiza la codificacion de la lógica del login en el archivo login.page.ts
+Primero se realiza la codificación de la lógica del login en el archivo login.page.ts
 ```bash
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -163,16 +172,13 @@ export class LoginPage implements OnInit {
 ```
 Con este código lo que hacemos, es que en el login la persona debe ingresar un correo y contraseña, esto para poder o logearse o registrarse.
 Ahora ya con la lógica necesaria para el login podemos pasar a hacer el HTML
-
 ```bash
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Devdactic Chat</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
-
   <form [formGroup]="credentialForm">
     <ion-item>
       <ion-input
@@ -186,7 +192,6 @@ Ahora ya con la lógica necesaria para el login podemos pasar a hacer el HTML
       <span *ngIf="email.errors?.required">Email is required</span>
       <span *ngIf="email.errors?.email">Email is invalid</span>
     </div>
-
     <ion-item>
       <ion-input
       placeholder="Password"
@@ -200,16 +205,12 @@ Ahora ya con la lógica necesaria para el login podemos pasar a hacer el HTML
       <span *ngIf="password.errors?.minlength">Password needs to be 6 characters</span>
     </div>
   </form>
-
     <ion-button (click)="signUp()" expand="full">Sing up</ion-button>
     <ion-button (click)="signIn()" expand="full" color="secondary">Sing in</ion-button>
 
 </ion-content>
 ```
-
-Entonces con el HTML podemos pasar la lógica ya generada y que funcione en nuestro HTML
-
-5 Ejecución
+- 5 Ejecución
 Para poder ejecutar nuestro proyecto simplemente necesitamos ejecutar el comando
 ```bash
 npx ionic s
