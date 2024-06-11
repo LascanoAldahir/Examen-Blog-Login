@@ -4,7 +4,7 @@ Hacer un login básico utilizando Ionic, Visual Studio Code y Android Studio
 
 ## Clonar
 ```bash
-Git clone https://github.com/4lanPz/AM_Login_2024A
+Git clone https://github.com/LascanoAldahir/Examen-Blog-Login.git
 ```
 
 ## Pasos
